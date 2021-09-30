@@ -20,5 +20,10 @@ describe('Test functions company routes', () => {
     it('return all company', () => {
         const companies = companyRoute.getCompanies();
         chai.expect(companies).to.containSubset(AllCompanySchamea)
-    })
+    });
+
+    it('Add company', () => {
+        const company = companyRoute.addCompany(companySchema);
+        chai.expect(company).to.containSubset(companySchema);
+    });
 })

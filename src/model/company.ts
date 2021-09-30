@@ -1,4 +1,4 @@
-interface CompanyConstructor {
+export interface CompanyConstructor {
     socialReason: string;
 
     cnpj: string;

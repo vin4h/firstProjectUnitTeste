@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Company } from '../model/Company';
+import { Company, CompanyConstructor } from '../model/Company';
 
 const companyRouter = Router();
 
@@ -9,8 +9,20 @@ const getCompanies = () => {
     return companies;
 }
 
+const addCompany = ({ socialReason, cnpj, address }: CompanyConstructor) => {
+    const newCompany = new Company({
+        socialReason,
+        cnpj,
+        address
+    });
+
+    companies.push(newCompany);
+
+    return newCompany;
+}
+
 companyRouter.get('/company', (request, response) => {
     response.json(getCompanies());
 })
 
-export default { companyRouter, getCompanies };
+export default { companyRouter, getCompanies, addCompany };
