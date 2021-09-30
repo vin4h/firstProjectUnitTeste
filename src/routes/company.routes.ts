@@ -1,34 +1,18 @@
 import { Router } from 'express';
-import { Company, CompanyConstructor } from '../model/Company';
+import Company, { CompanyConstructor } from '../model/Company';
 
 const companyRouter = Router();
 
-const companies: Company[] = [];
-
-const getCompanies = () => {
-    return companies;
-}
-
-const addCompany = ({ socialReason, cnpj, address }: CompanyConstructor) => {
-    const newCompany = new Company({
-        socialReason,
-        cnpj,
-        address
-    });
-
-    companies.push(newCompany);
-
-    return newCompany;
-}
+const company = new Company({});
 
 companyRouter.get('/company', (request, response) => {
-    response.json(getCompanies());
+    response.json(company.getCompanies());
 });
 
 companyRouter.post('/company', (request, response) => {
     const { socialReason, cnpj, address } = request.body;
 
-    const newCompany = addCompany({
+    const newCompany = company.addCompany({
         socialReason,
         cnpj,
         address
@@ -37,4 +21,4 @@ companyRouter.post('/company', (request, response) => {
     return response.status(201).json(newCompany);
 })
 
-export default { companyRouter, getCompanies, addCompany };
+export default { companyRouter };

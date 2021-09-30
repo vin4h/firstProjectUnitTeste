@@ -1,23 +1,45 @@
 export interface CompanyConstructor {
-    socialReason: string;
+    socialReason?: string;
 
-    cnpj: string;
+    cnpj?: string;
 
-    address: string;
+    address?: string;
 }
 
-export class Company {
-    socialReason: string;
+class Company {
+    private socialReason: string;
 
-    cnpj: string;
+    private cnpj: string;
 
-    address: string;
+    private address: string;
+
+    private companies: Company[] = [];
 
     constructor({ socialReason, cnpj, address }: CompanyConstructor) {
-        this.socialReason = socialReason;
-
-        this.cnpj = cnpj;
-
-        this.address = address;
+        this.socialReason = socialReason || '';
+        this.cnpj = cnpj || '';
+        this.address = address || '';
     }
+
+    public getCompanies = () => {
+        return this.companies;
+    }
+
+
+    public addCompany = ({ socialReason, cnpj, address }: CompanyConstructor) => {
+        const newCompany = {
+            socialReason,
+            cnpj,
+            address
+        };
+
+        const company = new Company(newCompany);
+
+
+        this.companies.push(company);
+
+        return newCompany;
+    }
+
 }
+export default Company;
